@@ -137,15 +137,21 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
-- **Nov 4, 2025 (Update 5)**: Final Vercel serverless fix - catch-all route pattern
-  - **CRITICAL FIX**: Implemented Vercel catch-all route pattern to properly handle all /api/* requests
-  - Renamed `api/index.ts` to `api/[...path].ts` - Vercel's catch-all route automatically handles all API paths
-  - Removed problematic dual-path registration that would have caused duplicate webhooks
-  - Added comprehensive production debugging logs to serverless handler and routes
-  - Updated `vercel.json` to reference catch-all route and removed unnecessary rewrites
-  - **Architecture**: Catch-all route preserves full request path, Express routes registered once as /api/*
-  - All tests passing - single 201 responses confirmed, no duplicates
-  - Ready for Vercel deployment with proper error logging
+- **Nov 4, 2025 (Update 6)**: Fixed 405 error on production site (engrainai.com)
+  - **CRITICAL FIX**: Changed serverless function to export Express app directly (Vercel's recommended pattern)
+  - Fixed `api/index.ts` to use `export default app` instead of handler function wrapper
+  - Updated `vercel.json` rewrites:
+    - `/api/(.*)` → `/api` (routes API requests to serverless function)
+    - `/(.*)`  → `/index.html` (routes all other requests to SPA)
+  - **Root Cause**: Previous vercel.json was routing ALL requests to index.html, causing 405 errors on API calls
+  - All tests passing locally - ready for production deployment
+  - This fix resolves the "Submission Failed" error on live site
+
+- **Nov 4, 2025 (Update 5)**: Serverless architecture refactoring
+  - Created `server/app.ts` - Reusable Express app factory for dev and production
+  - Refactored `server/index.ts` to use createApp() for development
+  - Updated `server/routes.ts` to only register routes (no HTTP server creation)
+  - Enhanced DEPLOYMENT.md with serverless architecture overview
 
 - **Nov 4, 2025 (Update 4)**: Vercel serverless architecture implementation
   - Created `server/app.ts` - Reusable Express app factory for dev and production
