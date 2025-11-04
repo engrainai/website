@@ -63,7 +63,9 @@ async function sendToWebhook(data: any, formType: string) {
 }
 
 export async function registerRoutes(app: Express): Promise<void> {
+  // Consultation Requests
   app.post("/api/consultation-requests", async (req, res) => {
+    console.log("[API] POST /api/consultation-requests received");
     try {
       const validatedData = insertConsultationRequestSchema.parse(req.body);
       const request = await storage.createConsultationRequest(validatedData);
@@ -73,6 +75,7 @@ export async function registerRoutes(app: Express): Promise<void> {
       
       res.status(201).json(request);
     } catch (error) {
+      console.error("[API] Error in consultation-requests:", error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           error: "Validation failed", 
@@ -93,7 +96,9 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
+  // Demo Call Requests
   app.post("/api/demo-call-requests", async (req, res) => {
+    console.log("[API] POST /api/demo-call-requests received");
     try {
       const validatedData = insertDemoCallRequestSchema.parse(req.body);
       const request = await storage.createDemoCallRequest(validatedData);
@@ -103,6 +108,7 @@ export async function registerRoutes(app: Express): Promise<void> {
       
       res.status(201).json(request);
     } catch (error) {
+      console.error("[API] Error in demo-call-requests:", error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           error: "Validation failed", 
