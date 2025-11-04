@@ -11,6 +11,12 @@ Professional business website for Engrain AI - an AI automation company focused 
 - **Tagline**: Automate Intelligently. Grow Effortlessly.
 - **Primary Service**: AI Voice Receptionist
 - **Target Market**: Small business owners
+- **Contact Email**: logan@engrainai.com
+- **Contact Phone**: (623) 632-0933
+- **Pricing**: 
+  - Basic: $250/month
+  - Advanced: $500/month
+  - Enterprise: Custom pricing for larger requirements
 - **Mission**: To empower local businesses through intelligent automation that saves time, strengthens customer relationships, and drives sustainable growth — bridging the gap between human service and AI precision.
 
 ## Features Implemented
