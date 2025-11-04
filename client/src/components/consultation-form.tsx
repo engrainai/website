@@ -323,24 +323,6 @@ export function ConsultationForm() {
             </div>
 
             <Card className="p-6 bg-muted/50">
-              <h4 className="font-semibold mb-3">Simple, Transparent Pricing</h4>
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm font-medium">Basic Plan</span>
-                  <span className="text-lg font-bold">$250<span className="text-sm font-normal text-muted-foreground">/mo</span></span>
-                </div>
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm font-medium">Advanced Plan</span>
-                  <span className="text-lg font-bold">$500<span className="text-sm font-normal text-muted-foreground">/mo</span></span>
-                </div>
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm font-medium">Enterprise</span>
-                  <span className="text-sm font-semibold text-primary">Custom</span>
-                </div>
-              </div>
-              <p className="text-xs text-muted-foreground mb-4 pb-4 border-b">
-                All plans include setup, training, and ongoing support.
-              </p>
               <h4 className="font-semibold mb-2">Contact Us Directly</h4>
               <p className="text-sm text-muted-foreground mb-4">
                 Prefer to reach out another way? We're here to help.
