@@ -20,8 +20,12 @@ import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 
 export function ConsultationForm() {
   const { toast } = useToast();
+  const consultationSchema = insertConsultationRequestSchema.extend({
+    businessName: insertConsultationRequestSchema.shape.businessName,
+  });
+
   const form = useForm<InsertConsultationRequest>({
-    resolver: zodResolver(insertConsultationRequestSchema),
+    resolver: zodResolver(consultationSchema),
     defaultValues: {
       businessName: "",
       contactName: "",

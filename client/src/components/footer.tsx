@@ -47,15 +47,6 @@ export function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => scrollToSection("demo")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-demo"
-                >
-                  Book Demo
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => scrollToSection("consultation")}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-consultation"

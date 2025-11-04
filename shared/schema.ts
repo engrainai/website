@@ -24,24 +24,23 @@ export const insertConsultationRequestSchema = createInsertSchema(consultationRe
 export type InsertConsultationRequest = z.infer<typeof insertConsultationRequestSchema>;
 export type ConsultationRequest = typeof consultationRequests.$inferSelect;
 
-// Demo Booking Schema
-export const demoBookings = pgTable("demo_bookings", {
+// Demo Call Request Schema (immediate callback)
+export const demoCallRequests = pgTable("demo_call_requests", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
+  businessName: text("business_name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
-  preferredDate: text("preferred_date").notNull(),
-  preferredTime: text("preferred_time").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertDemoBookingSchema = createInsertSchema(demoBookings).omit({
+export const insertDemoCallRequestSchema = createInsertSchema(demoCallRequests).omit({
   id: true,
   createdAt: true,
 });
 
-export type InsertDemoBooking = z.infer<typeof insertDemoBookingSchema>;
-export type DemoBooking = typeof demoBookings.$inferSelect;
+export type InsertDemoCallRequest = z.infer<typeof insertDemoCallRequestSchema>;
+export type DemoCallRequest = typeof demoCallRequests.$inferSelect;
 
 // Voice Sample Type (no database table needed, just TypeScript interface)
 export interface VoiceSample {

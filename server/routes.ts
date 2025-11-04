@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertConsultationRequestSchema, insertDemoBookingSchema } from "@shared/schema";
+import { insertConsultationRequestSchema, insertDemoCallRequestSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -31,11 +31,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/demo-bookings", async (req, res) => {
+  app.post("/api/demo-call-requests", async (req, res) => {
     try {
-      const validatedData = insertDemoBookingSchema.parse(req.body);
-      const booking = await storage.createDemoBooking(validatedData);
-      res.status(201).json(booking);
+      const validatedData = insertDemoCallRequestSchema.parse(req.body);
+      const request = await storage.createDemoCallRequest(validatedData);
+      res.status(201).json(request);
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
@@ -48,10 +48,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/demo-bookings", async (req, res) => {
+  app.get("/api/demo-call-requests", async (req, res) => {
     try {
-      const bookings = await storage.getDemoBookings();
-      res.json(bookings);
+      const requests = await storage.getDemoCallRequests();
+      res.json(requests);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
     }

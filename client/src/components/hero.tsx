@@ -40,21 +40,21 @@ export function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 
             size="lg" 
-            onClick={() => scrollToSection("demo")}
+            onClick={() => scrollToSection("consultation")}
             className="text-base md:text-lg px-8 py-6 bg-primary/90 backdrop-blur-sm hover:bg-primary border border-primary-border"
-            data-testid="button-try-demo"
+            data-testid="button-request-consultation"
           >
-            Try Demo Call
+            Get Started
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <Button 
             size="lg" 
             variant="outline"
-            onClick={() => scrollToSection("consultation")}
+            onClick={() => scrollToSection("voices")}
             className="text-base md:text-lg px-8 py-6 bg-background/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-background/20"
-            data-testid="button-request-consultation"
+            data-testid="button-voice-samples"
           >
-            Request Consultation
+            Hear Voice Samples
           </Button>
         </div>
         

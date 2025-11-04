@@ -15,23 +15,30 @@ Professional business website for Engrain AI - an AI automation company focused 
 
 ## Features Implemented
 
-### 1. Hero Section
+### 1. Dark Mode Theme
+- Application defaults to dark mode for modern, professional appearance
+- Theme toggle button in top-right corner
+- Smooth transitions between light and dark modes
+- Theme preference persisted in localStorage
+- Fully responsive dark mode design across all components
+
+### 2. Hero Section
 - Full-width hero with professional small business imagery
 - Compelling headline and tagline
-- Dual CTA buttons (Try Demo Call, Request Consultation)
+- Dual CTA buttons (Get Started, Hear Voice Samples)
 - Trust indicator
 - Gradient overlay for text readability
 
-### 2. Voice Samples Showcase
+### 3. Voice Samples Showcase
 - Interactive voice sample cards
 - 4 different voice personalities (Professional, Friendly, Energetic, Calm)
 - Visual waveform display
 - Play/pause functionality (simulated)
 
-### 3. Services Grid
+### 4. Services Grid
 - 6 automation services displayed
 - Icons from lucide-react
-- Hover effects
+- Hover effects optimized for dark mode
 - Services include:
   - AI Voice Receptionist
   - Lead Follow-up Automation
@@ -40,30 +47,26 @@ Professional business website for Engrain AI - an AI automation company focused 
   - Expense Categorization
   - Social Media Automation
 
-### 4. Benefits Section
+### 5. Benefits Section
 - 4 metric cards showing value proposition
 - "Human + AI Partnership" messaging card
 - Statistics on time saved, customer satisfaction, lead conversion, uptime
-
-### 5. Demo Booking Form
-- Full form with validation
-- Fields: name, email, phone, preferred date/time
-- Integration with backend API
-- Success/error toast notifications
-- Visual mockup of AI chat interface
+- Dark mode optimized design
 
 ### 6. Consultation Request Form
 - Comprehensive form for custom automation needs
-- Fields: business name, contact info, business type, automation needs, contact preference
-- "What to Expect" process breakdown
+- Required fields: business name, contact name, email, phone, business type, automation needs, preferred contact method
+- "What to Expect" process breakdown with numbered steps
 - Direct contact information displayed
-- Backend integration
+- Backend integration with validation
+- Success/error toast notifications
 
 ### 7. Footer
 - Company branding
 - Quick navigation links
 - Contact information
 - Copyright notice
+- Dark mode compatible styling
 
 ## Technical Architecture
 
@@ -87,8 +90,8 @@ Professional business website for Engrain AI - an AI automation company focused 
   - GET /api/demo-bookings
 
 ### Data Models
-- **ConsultationRequest**: Business name, contact info, business type, automation needs, preferred contact method
-- **DemoBooking**: Name, email, phone, preferred date/time
+- **ConsultationRequest**: Business name, contact name, email, phone, business type, automation needs, preferred contact method
+- **DemoCallRequest**: Name, business name, email, phone (for immediate callback requests)
 - **VoiceSample**: Name, description, voice type (client-side only)
 
 ## Design System
@@ -128,7 +131,15 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
-- **Nov 4, 2025**: Initial implementation completed
+- **Nov 4, 2025 (Update 2)**: Dark mode and UX improvements
+  - Implemented dark mode with theme toggle
+  - Removed demo booking section per user request
+  - Simplified demo flow (removed date/time scheduling)
+  - Made business name required in consultation form
+  - Updated hero CTAs to "Get Started" and "Hear Voice Samples"
+  - All components optimized for dark mode display
+
+- **Nov 4, 2025 (Update 1)**: Initial implementation completed
   - All schemas defined
   - Complete frontend built with exceptional visual quality
   - Backend API endpoints implemented

@@ -4,13 +4,13 @@ A professional business website for Engrain AI, showcasing AI automation service
 
 ## Features
 
+- **Dark Mode** - Modern dark theme with toggle for light/dark preference
 - **Hero Section** - Compelling introduction with clear call-to-action
 - **AI Voice Samples** - Interactive showcase of different voice personalities
 - **Services Overview** - Comprehensive grid of automation capabilities
 - **Benefits Section** - Data-driven results and value propositions
-- **Demo Booking** - Easy scheduling interface for 15-minute demos
-- **Consultation Form** - Detailed form for custom automation requests
-- **Responsive Design** - Beautiful UI across all devices
+- **Consultation Form** - Detailed form for custom automation requests with business name
+- **Responsive Design** - Beautiful UI across all devices optimized for dark mode
 - **SEO Optimized** - Proper meta tags and Open Graph support
 
 ## Tech Stack
@@ -125,10 +125,10 @@ The production build will be in the `dist/` directory.
 
 ## API Endpoints
 
-- `POST /api/consultation-requests` - Submit consultation request
+- `POST /api/consultation-requests` - Submit consultation request (includes business name)
 - `GET /api/consultation-requests` - Get all consultation requests
-- `POST /api/demo-bookings` - Submit demo booking
-- `GET /api/demo-bookings` - Get all demo bookings
+- `POST /api/demo-call-requests` - Submit immediate demo call request
+- `GET /api/demo-call-requests` - Get all demo call requests
 
 ## Customization
 
