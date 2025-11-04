@@ -1,5 +1,15 @@
 # Deployment Guide for Engrain AI Website
 
+## Architecture Overview
+
+This application uses a **serverless architecture** optimized for Vercel:
+
+- **Development**: Traditional Express server (`server/index.ts`) on port 5000
+- **Production (Vercel)**: Serverless function (`api/index.ts`) that handles all API routes
+- **Frontend**: Static files served from `dist/public`
+
+The serverless function handles all `/api/*` routes while static files are served directly.
+
 ## Prerequisites
 - GitHub account
 - Vercel account (free tier works)
@@ -33,10 +43,15 @@ Vercel should auto-detect the settings, but verify:
 - **Install Command**: `npm install`
 
 ### Add Environment Variables
-**CRITICAL**: Before deploying, add these environment variables:
+**CRITICAL**: You MUST add environment variables BEFORE first deployment or forms will fail:
 
-1. In the Vercel project configuration, find "Environment Variables"
+1. In the Vercel project configuration screen (before clicking Deploy), find "Environment Variables"
 2. Add the following variables for **ALL environments** (Production, Preview, Development):
+
+**OR** if you already deployed without variables:
+1. Go to Project Settings → Environment Variables
+2. Add the variables
+3. Redeploy (Deployments tab → "..." menu → Redeploy)
 
 | Variable Name | Value | Example |
 |--------------|-------|---------|

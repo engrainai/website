@@ -1,5 +1,4 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertConsultationRequestSchema, insertDemoCallRequestSchema } from "@shared/schema";
 import { z } from "zod";
@@ -63,7 +62,7 @@ async function sendToWebhook(data: any, formType: string) {
   }
 }
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   app.post("/api/consultation-requests", async (req, res) => {
     try {
       const validatedData = insertConsultationRequestSchema.parse(req.body);
@@ -123,8 +122,4 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Internal server error" });
     }
   });
-
-  const httpServer = createServer(app);
-
-  return httpServer;
 }
