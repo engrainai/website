@@ -1,5 +1,4 @@
 import { Hero } from "@/components/hero";
-import { VoiceSamples } from "@/components/voice-samples";
 import { Services } from "@/components/services";
 import { ConsultationForm } from "@/components/consultation-form";
 import { Benefits } from "@/components/benefits";
@@ -13,7 +12,6 @@ export default function Home() {
         <ThemeToggle />
       </div>
       <Hero />
-      <VoiceSamples />
       <Services />
       <Benefits />
       <ConsultationForm />

@@ -29,15 +29,6 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <button
-                  onClick={() => scrollToSection("voices")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-voice-samples"
-                >
-                  Voice Samples
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => scrollToSection("services")}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-services"

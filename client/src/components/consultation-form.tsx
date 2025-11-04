@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -17,14 +18,20 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { z } from "zod";
+
+type ConsultationFormData = InsertConsultationRequest & { consent: boolean };
 
 export function ConsultationForm() {
   const { toast } = useToast();
   const consultationSchema = insertConsultationRequestSchema.extend({
     businessName: insertConsultationRequestSchema.shape.businessName,
+    consent: z.boolean().refine((val) => val === true, {
+      message: "You must agree to receive communications",
+    }),
   });
 
-  const form = useForm<InsertConsultationRequest>({
+  const form = useForm<ConsultationFormData>({
     resolver: zodResolver(consultationSchema),
     defaultValues: {
       businessName: "",
@@ -34,6 +41,7 @@ export function ConsultationForm() {
       businessType: "",
       automationNeeds: "",
       preferredContactMethod: "",
+      consent: false,
     },
   });
 
@@ -58,8 +66,9 @@ export function ConsultationForm() {
     },
   });
 
-  const onSubmit = (data: InsertConsultationRequest) => {
-    consultationMutation.mutate(data);
+  const onSubmit = (data: ConsultationFormData) => {
+    const { consent, ...consultationData } = data;
+    consultationMutation.mutate(consultationData);
   };
 
   return (
@@ -202,6 +211,26 @@ export function ConsultationForm() {
                 {form.formState.errors.preferredContactMethod && (
                   <p className="text-sm text-destructive mt-1">{form.formState.errors.preferredContactMethod.message}</p>
                 )}
+              </div>
+
+              <div className="flex items-start gap-3 pt-2">
+                <Checkbox
+                  id="consultation-consent"
+                  checked={form.watch("consent")}
+                  onCheckedChange={(checked) => form.setValue("consent", checked as boolean)}
+                  data-testid="checkbox-consultation-consent"
+                />
+                <div className="flex-1">
+                  <Label 
+                    htmlFor="consultation-consent" 
+                    className="text-xs leading-relaxed cursor-pointer font-normal"
+                  >
+                    I agree to receive calls, text messages, and emails from Engrain AI, including messages sent using automated or AI-powered systems, at the contact information I provided. I understand that consent is not a condition of purchase, and I can opt out at any time by replying STOP to texts or using the unsubscribe link in emails. Message and data rates may apply. See our Privacy Policy for details.
+                  </Label>
+                  {form.formState.errors.consent && (
+                    <p className="text-sm text-destructive mt-1">{form.formState.errors.consent.message}</p>
+                  )}
+                </div>
               </div>
 
               <Button
