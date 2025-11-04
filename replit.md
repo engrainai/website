@@ -137,6 +137,15 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
+- **Nov 4, 2025 (Update 7)**: Simplified website - removed all forms
+  - **MAJOR CHANGE**: Removed all forms from website per user request
+  - Removed consultation form component from home page
+  - Removed demo call modal from hero section
+  - Updated hero section with single "Call Now: (623) 632-0933" button
+  - Site now focuses entirely on phone number CTAs
+  - All sections (Services, Benefits, Pricing, Footer) remain unchanged
+  - No forms, no input fields - simple marketing site directing users to call
+
 - **Nov 4, 2025 (Update 6)**: Fixed 405 error on production site (engrainai.com)
   - **CRITICAL FIX**: Changed serverless function to export Express app directly (Vercel's recommended pattern)
   - Fixed `api/index.ts` to use `export default app` instead of handler function wrapper
