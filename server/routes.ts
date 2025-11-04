@@ -8,32 +8,58 @@ async function sendToWebhook(data: any, formType: string) {
   const webhookUrl = process.env.WEBHOOK_URL;
   const webhookApiKey = process.env.WEBHOOK_API_KEY;
 
+  // Log configuration status (for debugging)
+  const hasUrl = !!webhookUrl;
+  const hasKey = !!webhookApiKey;
+  console.log(`[Webhook] Config check - URL: ${hasUrl}, Key: ${hasKey}`);
+
   if (!webhookUrl || !webhookApiKey) {
-    console.warn("Webhook URL or API key not configured");
+    console.warn("[Webhook] SKIPPED - URL or API key not configured in environment variables");
+    console.warn("[Webhook] To enable webhook: Set WEBHOOK_URL and WEBHOOK_API_KEY in Vercel environment variables");
     return;
   }
 
+  // Mask the URL for security but show enough to verify it's set
+  const maskedUrl = webhookUrl.substring(0, 20) + "..." + webhookUrl.substring(webhookUrl.length - 10);
+  console.log(`[Webhook] Attempting to send ${formType} to ${maskedUrl}`);
+
   try {
+    const payload = {
+      formType,
+      data,
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log(`[Webhook] Payload prepared for ${formType}`);
+
     const response = await fetch(webhookUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-Key": webhookApiKey,
       },
-      body: JSON.stringify({
-        formType,
-        data,
-        timestamp: new Date().toISOString(),
-      }),
+      body: JSON.stringify(payload),
     });
 
+    console.log(`[Webhook] Response status: ${response.status} ${response.statusText}`);
+
     if (!response.ok) {
-      console.error(`Webhook failed: ${response.status} ${response.statusText}`);
+      const responseText = await response.text();
+      console.error(`[Webhook] FAILED - Status: ${response.status}`);
+      console.error(`[Webhook] Response: ${responseText.substring(0, 500)}`);
     } else {
-      console.log(`Webhook sent successfully for ${formType}`);
+      console.log(`[Webhook] SUCCESS - ${formType} sent successfully`);
+      const responseText = await response.text();
+      if (responseText) {
+        console.log(`[Webhook] Response: ${responseText.substring(0, 200)}`);
+      }
     }
   } catch (error) {
-    console.error("Failed to send webhook:", error);
+    console.error(`[Webhook] ERROR - Failed to send ${formType}:`, error);
+    if (error instanceof Error) {
+      console.error(`[Webhook] Error message: ${error.message}`);
+      console.error(`[Webhook] Error stack: ${error.stack}`);
+    }
   }
 }
 

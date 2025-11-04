@@ -137,6 +137,14 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
+- **Nov 4, 2025 (Update 3)**: Webhook debugging and deployment fixes
+  - Enhanced webhook logging with [Webhook] prefix for better debugging
+  - Added comprehensive DEPLOYMENT.md with Vercel setup instructions
+  - Updated README.md with webhook environment variable requirements
+  - Added detailed webhook payload format documentation
+  - Improved error handling and logging for webhook integration
+  - Updated hero image to show open business with people and automation glow
+
 - **Nov 4, 2025 (Update 2)**: Dark mode and UX improvements
   - Implemented dark mode with theme toggle
   - Removed demo booking section per user request

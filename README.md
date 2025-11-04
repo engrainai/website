@@ -108,12 +108,40 @@ A professional business website for Engrain AI, showcasing AI automation service
 
 ## Environment Variables
 
-No environment variables are required for basic functionality. The application uses in-memory storage for demo purposes.
+### Required for Webhook Integration
 
-For production, you may want to:
-- Add a database connection
-- Configure email notifications for form submissions
-- Add analytics tracking
+To enable webhook notifications when forms are submitted:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `WEBHOOK_URL` | Your webhook endpoint URL | Yes (for form webhooks) |
+| `WEBHOOK_API_KEY` | API key for webhook authentication (sent as `X-Key` header) | Yes (for form webhooks) |
+| `SESSION_SECRET` | Secret for session management | Recommended |
+
+**Important**: On Vercel, you MUST set these environment variables in your project settings for ALL environments (Production, Preview, Development) or form submissions will fail.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions including how to set up environment variables on Vercel.
+
+### Webhook Payload Format
+
+When a form is submitted, the following JSON payload is sent to your webhook:
+
+```json
+{
+  "formType": "consultation-request" | "demo-call-request",
+  "data": {
+    // Form field data
+  },
+  "timestamp": "2025-11-04T13:00:00.000Z"
+}
+```
+
+### Local Development
+
+For local development without webhooks:
+- Forms will work normally
+- Webhook calls will be logged but skipped if environment variables are not set
+- Success messages will still appear to users
 
 ## Build for Production
 
