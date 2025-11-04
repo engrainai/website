@@ -1,6 +1,6 @@
 import { Sparkles } from "lucide-react";
 import { DemoCallModal } from "@/components/demo-call-modal";
-import heroImage from "@assets/generated_images/Hero_small_business_office_556bb140.png";
+import heroImage from "@assets/generated_images/Small_business_with_automation_glow_f8e11d38.png";
 
 export function Hero() {
   return (
