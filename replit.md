@@ -137,6 +137,16 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
+- **Nov 4, 2025 (Update 4)**: Vercel serverless architecture implementation
+  - **CRITICAL FIX**: Restructured app for Vercel serverless functions (was causing form submission failures)
+  - Created `server/app.ts` - Reusable Express app factory for dev and production
+  - Created `api/index.ts` - Vercel serverless function handler
+  - Refactored `server/index.ts` to use createApp() for development
+  - Updated `server/routes.ts` to only register routes (no HTTP server creation)
+  - Updated `vercel.json` with serverless functions configuration
+  - Enhanced DEPLOYMENT.md with serverless architecture overview
+  - All tests passing - forms work correctly in both dev and production modes
+
 - **Nov 4, 2025 (Update 3)**: Webhook debugging and deployment fixes
   - Enhanced webhook logging with [Webhook] prefix for better debugging
   - Added comprehensive DEPLOYMENT.md with Vercel setup instructions
