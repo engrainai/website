@@ -98,7 +98,7 @@ export function Pricing() {
 
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground">
-            All plans include setup, training, and ongoing support.
+            All plans include training and ongoing support.
           </p>
         </div>
       </div>
