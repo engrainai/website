@@ -1,5 +1,5 @@
-import { Sparkles } from "lucide-react";
-import { DemoCallModal } from "@/components/demo-call-modal";
+import { Sparkles, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/Open_business_with_people_and_automation_45e01c53.png";
 
 export function Hero() {
@@ -30,7 +30,23 @@ export function Hero() {
           bridging the gap between human service and AI precision.
         </p>
         
-        <DemoCallModal />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button 
+            size="lg"
+            variant="default"
+            asChild
+            data-testid="button-call-now"
+          >
+            <a href="tel:623-632-0933" className="flex items-center gap-2 text-lg">
+              <Phone className="w-5 h-5" />
+              Call Now: (623) 632-0933
+            </a>
+          </Button>
+        </div>
+        
+        <p className="text-white/80 mt-6 text-base md:text-lg">
+          Ready to transform your business with AI automation? Let's talk.
+        </p>
       </div>
     </section>
   );
