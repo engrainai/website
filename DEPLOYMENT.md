@@ -5,10 +5,15 @@
 This application uses a **serverless architecture** optimized for Vercel:
 
 - **Development**: Traditional Express server (`server/index.ts`) on port 5000
-- **Production (Vercel)**: Serverless function (`api/index.ts`) that handles all API routes
+- **Production (Vercel)**: Catch-all serverless function (`api/[...path].ts`) that handles ALL `/api/*` routes
 - **Frontend**: Static files served from `dist/public`
 
-The serverless function handles all `/api/*` routes while static files are served directly.
+### How It Works
+1. User makes request to `/api/consultation-requests`
+2. Vercel routes to `api/[...path].ts` serverless function
+3. The catch-all function preserves the full path (`/api/consultation-requests`)
+4. Express app inside the function handles the route
+5. No rewrites needed - the catch-all pattern handles everything automatically
 
 ## Prerequisites
 - GitHub account
