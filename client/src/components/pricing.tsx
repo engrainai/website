@@ -75,6 +75,7 @@ export function Pricing() {
               
               <div className="mb-6">
                 <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                <p className="text-sm text-muted-foreground mb-2">Starting At</p>
                 <div className="flex items-baseline gap-1 mb-2">
                   <span className="text-4xl font-bold">{plan.price}</span>
                   {plan.period && (
