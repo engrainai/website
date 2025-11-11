@@ -36,10 +36,7 @@ export function ContactSection() {
 
   const mutation = useMutation({
     mutationFn: async (data: InsertContactRequest) => {
-      return await apiRequest("/api/contact", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return await apiRequest("POST", "/api/contact", data);
     },
     onSuccess: () => {
       setSubmitSuccess(true);
