@@ -137,6 +137,20 @@ Professional business website for Engrain AI - an AI automation company focused 
 - Clean project structure
 
 ## Recent Changes
+- **Nov 11, 2025 (Update 8)**: Added contact form for callback requests
+  - **NEW FEATURE**: Implemented contact form based on user-provided contact.html and api/contact.js
+  - Contact form section added between Pricing and Footer
+  - Fields: firstName, lastName, email, phone (optional), company (optional), automationGoal
+  - Backend: POST /api/contact with rate limiting (5 requests per 15 min per IP)
+  - React Hook Form + Shadcn UI components for frontend
+  - Success message displays after submission, form resets automatically
+  - Webhook integration for sending submissions to n8n (optional via WEBHOOK_URL env var)
+  - All tests passing - form submission, validation, and storage working correctly
+
+- **Nov 11, 2025**: Updated pricing section
+  - Added "Starting At" text between plan name and price on all pricing cards
+  - Text uses same font size as description (text-sm)
+
 - **Nov 4, 2025 (Update 7)**: Simplified website - removed all forms
   - **MAJOR CHANGE**: Removed all forms from website per user request
   - Removed consultation form component from home page
