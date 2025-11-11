@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contact Us - Automation Solutions</title>
     <style>
         * {
             margin: 0;
@@ -34,6 +34,7 @@
             margin-bottom: 1.5rem;
             color: #333;
             text-align: center;
+            font-size: 1.75rem;
         }
         
         .form-group {
@@ -45,6 +46,7 @@
             margin-bottom: 0.5rem;
             color: #555;
             font-weight: 500;
+            font-size: 0.9rem;
         }
         
         input, textarea {
@@ -54,6 +56,7 @@
             border-radius: 6px;
             font-size: 1rem;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
         
         input:focus, textarea:focus {
@@ -79,7 +82,7 @@
             transition: background 0.3s;
         }
         
-        button:hover {
+        button:hover:not(:disabled) {
             background: #0051d5;
         }
         
@@ -94,6 +97,7 @@
             border-radius: 6px;
             text-align: center;
             display: none;
+            font-size: 0.9rem;
         }
         
         .success {
@@ -107,11 +111,25 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        
+        .required-hint {
+            font-size: 0.85rem;
+            color: #777;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* reCAPTCHA v3 badge styling - optional to hide */
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Get In Touch</h2>
+        <h2>Let's Automate Your Workflow</h2>
+        <p class="required-hint">* Required fields</p>
+        
         <form id="contactForm">
             <div class="form-group">
                 <label for="firstName">First Name *</label>
@@ -130,7 +148,7 @@
             
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone">
+                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
             </div>
             
             <div class="form-group">
@@ -140,7 +158,7 @@
             
             <div class="form-group">
                 <label for="automationGoal">What are you hoping to automate? *</label>
-                <textarea id="automationGoal" name="automationGoal" required></textarea>
+                <textarea id="automationGoal" name="automationGoal" required placeholder="Describe your automation needs..."></textarea>
             </div>
             
             <button type="submit" id="submitBtn">Submit</button>
@@ -149,7 +167,13 @@
         <div id="formMessage" class="message"></div>
     </div>
 
+    <!-- reCAPTCHA v3 Script -->
+    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
+    
     <script>
+        // Store site key for reCAPTCHA execution
+        const RECAPTCHA_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY';
+        
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -163,19 +187,30 @@
             formMessage.style.display = 'none';
             
             try {
+                // Execute reCAPTCHA v3 and get token
+                const recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+                    action: 'contact_form_submit'
+                });
+                
+                // Prepare submission data
+                const submissionData = {
+                    ...Object.fromEntries(formData),
+                    'g-recaptcha-response': recaptchaToken
+                };
+                
                 const response = await fetch('/api/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(Object.fromEntries(formData))
+                    body: JSON.stringify(submissionData)
                 });
                 
                 const result = await response.json();
                 
                 if (response.ok) {
                     formMessage.className = 'message success';
-                    formMessage.textContent = 'Thank you! We\\'ll be in touch soon.';
+                    formMessage.textContent = 'Thank you! We\\'ll be in touch within 24 hours.';
                     e.target.reset();
                 } else {
                     formMessage.className = 'message error';
@@ -186,11 +221,13 @@
                 
             } catch (error) {
                 formMessage.className = 'message error';
-                formMessage.textContent = 'Network error. Please try again.';
+                formMessage.textContent = 'Network error. Please check your connection and try again.';
                 formMessage.style.display = 'block';
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit';
+                // Reset reCAPTCHA for next submission
+                grecaptcha.reset();
             }
         });
     </script>
