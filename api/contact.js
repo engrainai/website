@@ -3,6 +3,9 @@ const rateLimit = new Map();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
 const MAX_REQUESTS_PER_WINDOW = 5;
 
+// reCAPTCHA v3 score threshold (0.0 to 1.0, 0.5 is medium)
+const RECAPTCHA_SCORE_THRESHOLD = 0.5;
+
 export default async function handler(req, res) {
   // Set CORS headers - ADJUST origin for production
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,7 +32,6 @@ export default async function handler(req, res) {
     if (rateLimit.has(clientIP)) {
       const record = rateLimit.get(clientIP);
       if (now - record.startTime > RATE_LIMIT_WINDOW) {
-        // Reset window
         rateLimit.set(clientIP, { count: 1, startTime: now });
       } else if (record.count >= MAX_REQUESTS_PER_WINDOW) {
         res.status(429).json({ 
@@ -66,23 +68,58 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Verify reCAPTCHA (if enabled)
+    // Verify reCAPTCHA v3 token (if enabled)
     if (process.env.RECAPTCHA_SECRET_KEY) {
       if (!recaptchaToken) {
         res.status(400).json({ error: 'reCAPTCHA verification required' });
         return;
       }
 
-      const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`;
-      const recaptchaResult = await fetch(verifyURL, { method: 'POST' }).then(r => r.json());
-      
+      const verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+      const recaptchaData = new URLSearchParams({
+        secret: process.env.RECAPTCHA_SECRET_KEY,
+        response: recaptchaToken,
+        remoteip: clientIP // Optional but recommended
+      });
+
+      const recaptchaResult = await fetch(verifyURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: recaptchaData
+      }).then(r => r.json());
+
+      // Check if verification succeeded
       if (!recaptchaResult.success) {
+        console.error('reCAPTCHA verification failed:', recaptchaResult['error-codes']);
         res.status(400).json({ error: 'reCAPTCHA verification failed' });
         return;
       }
+
+      // Check score threshold (0.0 = bot, 1.0 = human)
+      const score = recaptchaResult.score;
+      const action = recaptchaResult.action;
+      
+      // Validate action to prevent token reuse
+      if (action !== 'contact_form_submit') {
+        res.status(400).json({ error: 'Invalid reCAPTCHA action' });
+        return;
+      }
+
+      if (score < RECAPTCHA_SCORE_THRESHOLD) {
+        console.warn(`Low reCAPTCHA score: ${score} from IP ${clientIP}`);
+        res.status(400).json({ 
+          error: 'Security check failed. Please try again.' 
+        });
+        return;
+      }
+
+      // Optional: Log successful verification details
+      console.log(`reCAPTCHA v3 verification passed: score=${score}, action=${action}`);
     }
 
-    // Prepare data for n8n with secret token
+    // Prepare data for n8n
     const webhookData = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
@@ -92,51 +129,5 @@ export default async function handler(req, res) {
       automationGoal: automationGoal.trim(),
       submittedAt: new Date().toISOString(),
       source: 'website-contact-form',
-      ipAddress: clientIP
-    };
-
-    // Add secret token to webhook URL if configured
-    let n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
-    if (process.env.N8N_SECRET_TOKEN) {
-      const url = new URL(n8nWebhookUrl);
-      url.searchParams.append('secret', process.env.N8N_SECRET_TOKEN);
-      n8nWebhookUrl = url.toString();
-    }
-
-    // Send to n8n webhook with timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
-    const n8nResponse = await fetch(n8nWebhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Vercel-Contact-Form-Handler'
-      },
-      body: JSON.stringify(webhookData),
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!n8nResponse.ok) {
-      throw new Error(`webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`);
-    }
-
-    res.status(200).json({ 
-      success: true, 
-      message: 'Form submitted successfully' 
-    });
-
-  } catch (error) {
-    console.error('Form submission error:', {
-      message: error.message,
-      stack: error.stack,
-      timestamp: new Date().toISOString()
-    });
-    
-    res.status(500).json({ 
-      error: 'Failed to process submission. Please try again.' 
-    });
-  }
-}
+      ipAddress: clientIP,
+      recaptchaScore: score || null
