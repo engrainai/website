@@ -1,33 +1,7 @@
-import type { Express, Request } from "express";
+import type { Express } from "express";
 import { storage } from "./storage";
-import { insertConsultationRequestSchema, insertDemoCallRequestSchema, insertContactRequestSchema } from "@shared/schema";
+import { insertConsultationRequestSchema, insertDemoCallRequestSchema } from "@shared/schema";
 import { z } from "zod";
-
-// Simple in-memory rate limiter (resets on server restart)
-const rateLimit = new Map<string, { count: number; startTime: number }>();
-const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
-const MAX_REQUESTS_PER_WINDOW = 5;
-
-function checkRateLimit(req: Request): boolean {
-  const clientIP = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.socket.remoteAddress || 'unknown';
-  const now = Date.now();
-
-  if (rateLimit.has(clientIP)) {
-    const record = rateLimit.get(clientIP)!;
-    if (now - record.startTime > RATE_LIMIT_WINDOW) {
-      rateLimit.set(clientIP, { count: 1, startTime: now });
-      return true;
-    } else if (record.count >= MAX_REQUESTS_PER_WINDOW) {
-      return false;
-    } else {
-      record.count++;
-      return true;
-    }
-  } else {
-    rateLimit.set(clientIP, { count: 1, startTime: now });
-    return true;
-  }
-}
 
 async function sendToWebhook(data: any, formType: string) {
   const webhookUrl = process.env.WEBHOOK_URL;
@@ -149,51 +123,6 @@ export async function registerRoutes(app: Express): Promise<void> {
   app.get("/api/demo-call-requests", async (req, res) => {
     try {
       const requests = await storage.getDemoCallRequests();
-      res.json(requests);
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
-
-  // Contact Requests
-  app.post("/api/contact", async (req, res) => {
-    console.log("[API] POST /api/contact received");
-    
-    // Check rate limit
-    if (!checkRateLimit(req)) {
-      console.warn("[API] Rate limit exceeded for contact form");
-      res.status(429).json({ error: "Too many requests. Please try again later." });
-      return;
-    }
-
-    try {
-      const validatedData = insertContactRequestSchema.parse(req.body);
-      const request = await storage.createContactRequest(validatedData);
-      
-      // Send to webhook asynchronously (don't block response)
-      sendToWebhook(validatedData, "contact-request").catch(console.error);
-      
-      res.status(201).json({ 
-        success: true,
-        message: "Thank you! We'll be in touch within 24 hours.",
-        id: request.id
-      });
-    } catch (error) {
-      console.error("[API] Error in contact:", error);
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          error: "Validation failed", 
-          details: error.errors 
-        });
-      } else {
-        res.status(500).json({ error: "Internal server error" });
-      }
-    }
-  });
-
-  app.get("/api/contact", async (req, res) => {
-    try {
-      const requests = await storage.getContactRequests();
       res.json(requests);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
