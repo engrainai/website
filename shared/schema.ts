@@ -42,6 +42,26 @@ export const insertDemoCallRequestSchema = createInsertSchema(demoCallRequests).
 export type InsertDemoCallRequest = z.infer<typeof insertDemoCallRequestSchema>;
 export type DemoCallRequest = typeof demoCallRequests.$inferSelect;
 
+// Contact Request Schema
+export const contactRequests = pgTable("contact_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  company: text("company"),
+  automationGoal: text("automation_goal").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertContactRequestSchema = createInsertSchema(contactRequests).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertContactRequest = z.infer<typeof insertContactRequestSchema>;
+export type ContactRequest = typeof contactRequests.$inferSelect;
+
 // Voice Sample Type (no database table needed, just TypeScript interface)
 export interface VoiceSample {
   id: string;
