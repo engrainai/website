@@ -15,7 +15,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    // This will run immediately after dependencies are installed
     "postinstall": "npx fix-react2shell-next --fix",
     "build": "next build",
     "start": "next start"
