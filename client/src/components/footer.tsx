@@ -74,7 +74,7 @@ export function Footer() {
               </li>
               <li>
                 <span className="font-medium">Business Hours:</span>{" "}
-                <span className="text-muted-foreground">Mon-Fri, 9am-6pm EST</span>
+                <span className="text-muted-foreground">Mon-Fri, 9am-6pm MST</span>
               </li>
             </ul>
           </div>
