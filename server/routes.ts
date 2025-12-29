@@ -2,6 +2,15 @@ import type { Express } from "express";
 import { storage } from "./storage";
 import { insertConsultationRequestSchema, insertDemoCallRequestSchema } from "@shared/schema";
 import { z } from "zod";
+import { sendContactEmail } from "./email";
+
+// Contact form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  message: z.string().min(1, "Message is required"),
+});
 
 async function sendToWebhook(data: any, formType: string) {
   const webhookUrl = process.env.WEBHOOK_URL;
@@ -126,6 +135,30 @@ export async function registerRoutes(app: Express): Promise<void> {
       res.json(requests);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Contact Form - sends email via Zoho SMTP
+  app.post("/api/contact", async (req, res) => {
+    console.log("[API] POST /api/contact received");
+    try {
+      const validatedData = contactFormSchema.parse(req.body);
+
+      await sendContactEmail(validatedData);
+      console.log("[API] Contact email sent successfully");
+
+      res.status(200).json({ success: true, message: "Message sent successfully" });
+    } catch (error) {
+      console.error("[API] Error in contact:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({
+          error: "Validation failed",
+          details: error.errors
+        });
+      } else {
+        console.error("[API] Email send error:", error);
+        res.status(500).json({ error: "Failed to send message. Please try again." });
+      }
     }
   });
 }

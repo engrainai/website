@@ -1,8 +1,13 @@
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-export function Pricing() {
+interface PricingProps {
+  onGetQuote?: () => void;
+}
+
+export function Pricing({ onGetQuote }: PricingProps) {
   const plans = [
     {
       name: "Basic",
@@ -85,7 +90,7 @@ export function Pricing() {
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
 
-              <ul className="space-y-3">
+              <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
@@ -93,6 +98,14 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
+
+              <Button
+                className="w-full"
+                variant={plan.isPopular ? "default" : "outline"}
+                onClick={onGetQuote}
+              >
+                Get Started
+              </Button>
             </Card>
           ))}
         </div>

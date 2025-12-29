@@ -1,8 +1,12 @@
-import { Sparkles, Phone } from "lucide-react";
+import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/Open_business_with_people_and_automation_45e01c53.png";
 
-export function Hero() {
+interface HeroProps {
+  onGetQuote?: () => void;
+}
+
+export function Hero({ onGetQuote }: HeroProps) {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
       <div 
@@ -31,15 +35,25 @@ export function Hero() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button 
+          <Button
             size="lg"
             variant="default"
+            onClick={onGetQuote}
+            data-testid="button-get-quote"
+          >
+            <MessageSquare className="w-5 h-5 mr-2" />
+            Get a Free Quote
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
             asChild
+            className="bg-white/10 border-white/30 text-white hover:bg-white/20"
             data-testid="button-call-now"
           >
             <a href="tel:623-632-0933" className="flex items-center gap-2 text-lg">
               <Phone className="w-5 h-5" />
-              Call Now: (623) 632-0933
+              (623) 632-0933
             </a>
           </Button>
         </div>
