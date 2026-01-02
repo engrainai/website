@@ -58,7 +58,10 @@ export function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => scrollToSection("contact")}
+                  onClick={() => {
+                    setLocation("/privacy-policy");
+                    window.scrollTo(0, 0);
+                  }}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-contact"
                 >
