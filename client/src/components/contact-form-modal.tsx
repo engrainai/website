@@ -150,7 +150,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
                 htmlFor="modal-consent"
                 className="text-xs leading-relaxed cursor-pointer font-normal"
               >
-                I agree to receive calls, text messages, and emails from Engrain AI. I understand that consent is not a condition of purchase, and I can opt out at any time.
+                I agree to receive calls, text messages, and emails from Engrain AI, including messages sent using automated or AI-powered systems, at the contact information I provided. I understand that consent is not a condition of purchase, and I can opt out at any time by replying STOP to texts or using the unsubscribe link in emails. Message and data rates may apply. See our Privacy Policy for details.
               </Label>
               {form.formState.errors.consent && (
                 <p className="text-sm text-destructive mt-1">{form.formState.errors.consent.message}</p>
