@@ -2,6 +2,7 @@ import { Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
 
 export function Footer() {
+  const [, setLocation] = useLocation();
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
