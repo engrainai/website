@@ -65,6 +65,7 @@ export function Footer() {
                 >
                   Contact Us
                 </button>
+              </li>
               <li>
                <button
                   onClick={() => setLocation("/privacy-policy")}
