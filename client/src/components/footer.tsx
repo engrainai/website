@@ -62,6 +62,14 @@ export function Footer() {
                 >
                   Contact Us
                 </button>
+              <li>
+                <button
+                  href="/privacy-policy"
+  className="text-muted-foreground hover:text-foreground transition-colors"
+  data-testid="link-privacy-policy"
+                >
+                  Privacy Policy
+                </button>
               </li>
             </ul>
           </div>
