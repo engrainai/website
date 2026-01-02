@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import { useLocation } from "wouter";
 
 export function Footer() {
   const scrollToSection = (id: string) => {
