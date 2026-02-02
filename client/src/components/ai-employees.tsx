@@ -19,14 +19,20 @@ const steps = [
 const plans = [
   {
     name: "20 Hours / Month",
+    price: "$500 / month",
+    setupFee: "$1,500 one-time setup fee",
     description: "Great for light recurring tasks and back-office support.",
   },
   {
     name: "40 Hours / Month",
+    price: "$900 / month",
+    setupFee: "$1,500 one-time setup fee",
     description: "Ideal for weekly workflows and shared team needs.",
   },
   {
     name: "80 Hours / Month",
+    price: "$1,500 / month",
+    setupFee: "$1,500 one-time setup fee",
     description: "Best for high-volume work or multi-department coverage.",
   },
   {
@@ -75,6 +81,12 @@ export function AIEmployees() {
             {plans.map((plan) => (
               <Card key={plan.name} className="p-6 md:p-8 text-center hover-elevate transition-all duration-300">
                 <h3 className="text-xl font-bold mb-3">{plan.name}</h3>
+                {plan.price && (
+                  <p className="text-2xl font-semibold text-foreground mb-2">{plan.price}</p>
+                )}
+                {plan.setupFee && (
+                  <p className="text-sm text-muted-foreground mb-3">{plan.setupFee}</p>
+                )}
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </Card>
             ))}
