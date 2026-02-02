@@ -55,7 +55,6 @@ export function Hero() {
     </section>
   );
 }
-=======
 import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/Open_business_with_people_and_automation_45e01c53.png";
@@ -124,4 +123,3 @@ export function Hero({ onGetQuote }: HeroProps) {
   );
 }
 
->>>>>>> 558b7d7b2db4ede74dd95f8d8ef08d71e63f3bc6
