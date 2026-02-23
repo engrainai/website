@@ -13,6 +13,7 @@ export function Pricing({ onGetQuote }: PricingProps) {
       name: "Basic",
       price: "$250",
       period: "/mo",
+      setupFee: "$1,500 one-time setup fee",
       description: "Perfect for solo operators",
       features: [
         "AI receptionist",
@@ -25,6 +26,7 @@ export function Pricing({ onGetQuote }: PricingProps) {
       name: "Advanced",
       price: "$500",
       period: "/mo",
+      setupFee: "$1,500 one-time setup fee",
       description: "For growing teams",
       isPopular: true,
       features: [
@@ -87,6 +89,9 @@ export function Pricing({ onGetQuote }: PricingProps) {
                     <span className="text-lg text-muted-foreground">{plan.period}</span>
                   )}
                 </div>
+                {plan.setupFee && (
+                  <p className="text-sm text-muted-foreground mb-1">{plan.setupFee}</p>
+                )}
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
 
