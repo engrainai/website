@@ -1,57 +1,103 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Check, GraduationCap, Handshake, Search, Workflow, type LucideIcon } from "lucide-react";
+
+interface Service {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  highlights: string[];
+}
+
+const services: Service[] = [
+  {
+    icon: Search,
+    title: "AI Opportunity Assessment",
+    description:
+      "We learn how your business runs, find where AI can save time and make money, and give you a clear, prioritized roadmap.",
+    highlights: [
+      "Review of your workflows and current tools",
+      "Top opportunities ranked by impact",
+      "Plain-English action plan",
+    ],
+  },
+  {
+    icon: GraduationCap,
+    title: "AI Training & Workshops",
+    description:
+      "Hands-on training for you and your team on using AI tools like ChatGPT, Claude, and Copilot safely and effectively in day-to-day work.",
+    highlights: [
+      "Tailored to your industry and roles",
+      "Practical, hands-on sessions",
+      "Guidelines for safe, responsible use",
+    ],
+  },
+  {
+    icon: Workflow,
+    title: "Implementation & Automation",
+    description:
+      "We set up and connect the right AI tools and automations for your business, so the plan turns into real results.",
+    highlights: [
+      "Tool selection and setup",
+      "Workflow automation",
+      "Works with the software you already use",
+    ],
+  },
+  {
+    icon: Handshake,
+    title: "Ongoing AI Advisor",
+    description:
+      "AI changes fast. We stay in your corner with regular check-ins, fresh ideas, and support as your business grows.",
+    highlights: [
+      "Regular strategy check-ins",
+      "Updates on new tools that matter to you",
+      "Support when you need it",
+    ],
+  },
+];
 
 export function Services() {
   return (
-    <section id="products" className="py-16 md:py-24 lg:py-32 bg-muted/30">
+    <section id="services" className="py-16 md:py-24 lg:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Our Products
+            How We Help
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Pick one or use both together.
+            From your first question about AI to a business that runs smarter every day.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <Card className="p-8 flex flex-col gap-6 hover-elevate transition-all duration-300">
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold">Virtual AI Employees</h3>
-              <p className="text-muted-foreground">
-                Send tasks by email or chat. Your AI employee completes the work on its own computer-based environment and returns the results.
-              </p>
-            </div>
-            <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-              <li>Send requests via email or instant messenger</li>
-              <li>Handles tasks that can be done on a computer (like a human would)</li>
-              <li>Plans available in 20, 40, or 80 hours per month (custom if you need more)</li>
-            </ul>
-            <div className="pt-2">
-              <Button asChild variant="default">
-                <a href="#ai-employee-pricing">View AI Employee Plans</a>
-              </Button>
-            </div>
-          </Card>
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map(({ icon: Icon, title, description, highlights }) => (
+            <Card key={title} className="p-8 flex flex-col gap-6 hover-elevate transition-all duration-300">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <Icon className="w-6 h-6" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold">{title}</h3>
+                <p className="text-muted-foreground">{description}</p>
+              </div>
+              <ul className="space-y-2">
+                {highlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-3 text-sm">
+                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ))}
+        </div>
 
-          <Card className="p-8 flex flex-col gap-6 hover-elevate transition-all duration-300">
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold">Voice AI Receptionist (24/7/365)</h3>
-              <p className="text-muted-foreground">
-                Never miss a call. Our AI receptionist answers around the clock, routes calls, takes messages, and captures leads.
-              </p>
-            </div>
-            <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-              <li>24/7/365 call answering</li>
-              <li>Call routing and message taking</li>
-              <li>Email summaries and lead capture</li>
-            </ul>
-            <div className="pt-2">
-              <Button asChild variant="outline">
-                <a href="#voice-pricing">View Receptionist Pricing</a>
-              </Button>
-            </div>
-          </Card>
+        <div className="text-center mt-12">
+          <p className="text-muted-foreground mb-6">
+            Not sure where to start? That's exactly what the first call is for.
+          </p>
+          <Button asChild size="lg">
+            <a href="#contact">Book a Free Strategy Call</a>
+          </Button>
         </div>
       </div>
     </section>

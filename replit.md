@@ -1,7 +1,7 @@
 # Engrain AI Website
 
 ## Overview
-Professional business website for Engrain AI - an AI automation company focused on helping small businesses automate intelligently and grow effortlessly.
+Professional business website for Engrain AI - an AI consulting company that teaches small businesses what AI can really do and helps them put it to work.
 
 **Live Date**: November 4, 2025
 **Status**: Production Ready
@@ -9,15 +9,14 @@ Professional business website for Engrain AI - an AI automation company focused 
 ## Business Information
 - **Company**: Engrain AI
 - **Tagline**: Automate Intelligently. Grow Effortlessly.
-- **Primary Service**: AI Voice Receptionist
+- **Primary Service**: AI consulting for small businesses (assessment, training, implementation, ongoing advisory)
 - **Target Market**: Small business owners
 - **Contact Email**: logan@engrainai.com
 - **Contact Phone**: (623) 632-0933
-- **Pricing**: 
-  - Basic: $250/month
-  - Advanced: $500/month
-  - Enterprise: Custom pricing for larger requirements
-- **Mission**: To empower local businesses through intelligent automation that saves time, strengthens customer relationships, and drives sustainable growth — bridging the gap between human service and AI precision.
+- **Pricing**: Custom proposal after a free strategy call (no prices listed on the site)
+- **Mission**: Help small businesses grow profits, increase productivity, and get their time back by showing them what AI can really do and putting it to work.
+
+> Note: The Voice AI Receptionist and Virtual AI Employee products were removed from the site in September 2026 when the business shifted to AI consulting. Sections below describing older features are historical.
 
 ## Features Implemented
 

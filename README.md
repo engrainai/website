@@ -1,15 +1,17 @@
-# Engrain AI - Business Automation Website
+# Engrain AI - AI Consulting Website
 
-A professional business website for Engrain AI, showcasing AI automation services with voice samples, demo call booking, and consultation request features.
+The website for Engrain AI, an AI consulting company that teaches small businesses what AI can really do and helps them put it to work to grow profits, increase productivity, and get their time back.
 
 ## Features
 
 - **Dark Mode** - Modern dark theme with toggle for light/dark preference
-- **Hero Section** - Compelling introduction with clear call-to-action
-- **AI Voice Samples** - Interactive showcase of different voice personalities
-- **Services Overview** - Comprehensive grid of automation capabilities
-- **Benefits Section** - Data-driven results and value propositions
-- **Consultation Form** - Detailed form for custom automation requests with business name
+- **Hero Section** - Consulting-focused introduction with a free strategy call CTA
+- **What AI Can Do** - Outcomes (profits, productivity, time) plus an honest "can and can't" breakdown
+- **Services** - AI Opportunity Assessment, Training & Workshops, Implementation & Automation, Ongoing AI Advisor
+- **How It Works** - Four-step Discover, Learn, Implement, Grow process
+- **Time Back Calculator** - Interactive estimate of hours and dollars AI could reclaim
+- **FAQ** - Common questions from small business owners
+- **Contact Form** - Strategy call request form that emails submissions via Zoho SMTP
 - **Responsive Design** - Beautiful UI across all devices optimized for dark mode
 - **SEO Optimized** - Proper meta tags and Open Graph support
 

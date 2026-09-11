@@ -1,6 +1,15 @@
 import { Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
 
+const quickLinks = [
+  { id: "outcomes", label: "What AI Can Do" },
+  { id: "services", label: "Services" },
+  { id: "process", label: "How It Works" },
+  { id: "calculator", label: "Time Back Calculator" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact Us" },
+];
+
 export function Footer() {
   const [, setLocation] = useLocation();
   const scrollToSection = (id: string) => {
@@ -18,88 +27,36 @@ export function Footer() {
               <span className="text-xl font-bold">Engrain AI</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Helping local businesses with AI employees and a 24/7 voice receptionist that save time,
-              strengthen customer relationships, and drive sustainable growth.
+              AI consulting for small businesses. We help owners understand what AI can really do,
+              then put it to work to grow profits, increase productivity, and win back their time.
             </p>
             <p className="text-xs text-muted-foreground font-medium">
-              Two products. One clear path to growth.
+              Automate Intelligently. Grow Effortlessly.
             </p>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
+              {quickLinks.map((link) => (
+                <li key={link.id}>
+                  <button
+                    onClick={() => scrollToSection(link.id)}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    data-testid={`link-${link.id}`}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
               <li>
                 <button
-                  onClick={() => scrollToSection("products")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-products"
-                >
-                  Our Products
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("ai-employees")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-ai-employees"
-                >
-                  Virtual AI Employees
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("ai-employee-pricing")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-ai-employee-pricing"
-                >
-                  AI Employee Plans
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("calculator")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-calculator"
-                >
-                  ROI Calculator
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("voice-receptionist")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-voice-receptionist"
-                >
-                  Voice AI Receptionist
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("voice-pricing")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-voice-pricing"
-                >
-                  Receptionist Pricing
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("contact")}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-contact"
-                >
-                  Contact Us
-                </button>
-              </li>
-              <li>
-               <button
                   onClick={() => {
                     setLocation("/privacy-policy");
                     window.scrollTo(0, 0);
                   }}
                   className="text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-contact"
+                  data-testid="link-privacy-policy"
                 >
                   Privacy Policy
                 </button>
@@ -131,7 +88,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Engrain AI. All rights reserved. Bridging human service and AI precision.</p>
+          <p>&copy; {new Date().getFullYear()} Engrain AI. All rights reserved. Helping small businesses put AI to work.</p>
         </div>
       </div>
     </footer>

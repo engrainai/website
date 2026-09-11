@@ -7,8 +7,9 @@ const contactFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
+  businessName: z.string().optional(),
   interestedIn: z.string().min(1, "Interested in is required"),
-  aiEmployeePlan: z.string().optional(),
+  teamSize: z.string().optional(),
   message: z.string().min(1, "Message is required"),
 });
 
@@ -37,8 +38,8 @@ function getTransporter(): nodemailer.Transporter {
   return transporter;
 }
 
-async function sendContactEmail(data: { name: string; email: string; phone?: string; interestedIn: string; aiEmployeePlan?: string; message: string }) {
-  const { name, email, phone, interestedIn, aiEmployeePlan, message } = data;
+async function sendContactEmail(data: z.infer<typeof contactFormSchema>) {
+  const { name, email, phone, businessName, interestedIn, teamSize, message } = data;
 
   const mailOptions = {
     from: process.env.ZOHO_EMAIL,
@@ -50,8 +51,9 @@ async function sendContactEmail(data: { name: string; email: string; phone?: str
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+      <p><strong>Business Name:</strong> ${businessName || "Not provided"}</p>
       <p><strong>Interested In:</strong> ${interestedIn}</p>
-      <p><strong>AI Employee Plan:</strong> ${aiEmployeePlan || "Not provided"}</p>
+      <p><strong>Team Size:</strong> ${teamSize || "Not provided"}</p>
       <hr />
       <h3>Message:</h3>
       <p>${message.replace(/\n/g, "<br />")}</p>
@@ -66,8 +68,9 @@ New Contact Form Submission
 Name: ${name}
 Email: ${email}
 Phone: ${phone || "Not provided"}
+Business Name: ${businessName || "Not provided"}
 Interested In: ${interestedIn}
-AI Employee Plan: ${aiEmployeePlan || "Not provided"}
+Team Size: ${teamSize || "Not provided"}
 
 Message:
 ${message}

@@ -1,15 +1,15 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
-import { Services } from "@/components/services";
-import { AIEmployees } from "@/components/ai-employees";
-import { ROICalculator } from "@/components/roi-calculator";
 import { Benefits } from "@/components/benefits";
-import { Pricing } from "@/components/pricing";
+import { Services } from "@/components/services";
+import { Process } from "@/components/process";
+import { TimeBackCalculator } from "@/components/time-back-calculator";
+import { FAQ } from "@/components/faq";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
-  const handleGetQuote = () => {
+  const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -20,11 +20,11 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <Hero />
-      <Services />
-      <AIEmployees />
-      <ROICalculator onGetQuote={handleGetQuote} />
       <Benefits />
-      <Pricing onGetQuote={handleGetQuote} />
+      <Services />
+      <Process />
+      <TimeBackCalculator onGetStarted={scrollToContact} />
+      <FAQ />
       <ContactSection />
       <Footer />
     </div>

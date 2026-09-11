@@ -18,14 +18,46 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { z } from "zod";
-import { useEffect } from "react";
+
+const serviceOptions = [
+  "AI Opportunity Assessment",
+  "AI Training & Workshops",
+  "Implementation & Automation",
+  "Ongoing AI Advisor",
+  "Not sure yet",
+];
+
+const teamSizeOptions = ["Just me", "2-10 people", "11-50 people", "50+ people"];
+
+const expectations = [
+  {
+    title: "Quick Response",
+    description: "We'll review your message and respond within 24 hours.",
+  },
+  {
+    title: "Free Strategy Call",
+    description: "A no-pressure conversation about your goals and where AI can make the biggest difference.",
+  },
+  {
+    title: "Clear Next Steps",
+    description: "Practical recommendations for your business, plus a transparent proposal if we're a good fit.",
+  },
+];
+
+const commitments = [
+  "Response within 24 hours",
+  "No-obligation strategy call",
+  "Plain-English advice, no jargon",
+  "Transparent pricing",
+];
 
 const contactFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  businessName: z.string().optional(),
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
   interestedIn: z.string().min(1, "Please select an option"),
-  aiEmployeePlan: z.string().optional(),
+  teamSize: z.string().optional(),
   message: z.string().min(1, "Message is required"),
   consent: z.boolean().refine((val) => val === true, {
     message: "You must agree to receive communications",
@@ -41,22 +73,15 @@ export function ContactSection() {
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
+      businessName: "",
       email: "",
       phone: "",
       interestedIn: "",
-      aiEmployeePlan: "",
+      teamSize: "",
       message: "",
       consent: false,
     },
   });
-
-  const interestedIn = form.watch("interestedIn");
-
-  useEffect(() => {
-    if (interestedIn !== "Virtual AI Employees" && interestedIn !== "Both") {
-      form.setValue("aiEmployeePlan", "");
-    }
-  }, [form, interestedIn]);
 
   const contactMutation = useMutation({
     mutationFn: async (data: Omit<ContactFormData, "consent">) => {
@@ -88,10 +113,10 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Get In Touch
+            Book Your Free AI Strategy Call
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to get started? Send us a message and we'll get back to you within 24 hours.
+            Tell us a little about your business and we'll get back to you within 24 hours.
           </p>
         </div>
 
@@ -105,58 +130,30 @@ export function ContactSection() {
             </div>
 
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <Label htmlFor="contact-name">Full Name</Label>
-                <Input
-                  id="contact-name"
-                  {...form.register("name")}
-                  placeholder="John Smith"
-                  className="mt-2"
-                />
-                {form.formState.errors.name && (
-                  <p className="text-sm text-destructive mt-1">{form.formState.errors.name.message}</p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="contact-interested">Interested In</Label>
-                <Select
-                  value={interestedIn}
-                  onValueChange={(value) => form.setValue("interestedIn", value)}
-                >
-                  <SelectTrigger className="mt-2" id="contact-interested" data-testid="select-interested-in">
-                    <SelectValue placeholder="Select an option" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Virtual AI Employees">Virtual AI Employees</SelectItem>
-                    <SelectItem value="Voice AI Receptionist">Voice AI Receptionist</SelectItem>
-                    <SelectItem value="Both">Both</SelectItem>
-                  </SelectContent>
-                </Select>
-                {form.formState.errors.interestedIn && (
-                  <p className="text-sm text-destructive mt-1">{form.formState.errors.interestedIn.message}</p>
-                )}
-              </div>
-
-              {(interestedIn === "Virtual AI Employees" || interestedIn === "Both") && (
+              <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="contact-ai-plan">AI Employee Plan (Optional)</Label>
-                  <Select
-                    value={form.watch("aiEmployeePlan")}
-                    onValueChange={(value) => form.setValue("aiEmployeePlan", value)}
-                  >
-                    <SelectTrigger className="mt-2" id="contact-ai-plan" data-testid="select-ai-employee-plan">
-                      <SelectValue placeholder="Select a plan" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="20 hours/month">20 hours/month</SelectItem>
-                      <SelectItem value="40 hours/month">40 hours/month</SelectItem>
-                      <SelectItem value="80 hours/month">80 hours/month</SelectItem>
-                      <SelectItem value="Not sure">Not sure</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="contact-name">Full Name</Label>
+                  <Input
+                    id="contact-name"
+                    {...form.register("name")}
+                    placeholder="John Smith"
+                    className="mt-2"
+                  />
+                  {form.formState.errors.name && (
+                    <p className="text-sm text-destructive mt-1">{form.formState.errors.name.message}</p>
+                  )}
                 </div>
-              )}
+
+                <div>
+                  <Label htmlFor="contact-business">Business Name (Optional)</Label>
+                  <Input
+                    id="contact-business"
+                    {...form.register("businessName")}
+                    placeholder="Smith Plumbing"
+                    className="mt-2"
+                  />
+                </div>
+              </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -185,15 +182,54 @@ export function ContactSection() {
                 </div>
               </div>
 
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="contact-interested">Interested In</Label>
+                  <Select
+                    value={form.watch("interestedIn")}
+                    onValueChange={(value) => form.setValue("interestedIn", value, { shouldValidate: true })}
+                  >
+                    <SelectTrigger className="mt-2" id="contact-interested" data-testid="select-interested-in">
+                      <SelectValue placeholder="Select an option" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {serviceOptions.map((option) => (
+                        <SelectItem key={option} value={option}>{option}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {form.formState.errors.interestedIn && (
+                    <p className="text-sm text-destructive mt-1">{form.formState.errors.interestedIn.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="contact-team-size">Team Size (Optional)</Label>
+                  <Select
+                    value={form.watch("teamSize")}
+                    onValueChange={(value) => form.setValue("teamSize", value)}
+                  >
+                    <SelectTrigger className="mt-2" id="contact-team-size" data-testid="select-team-size">
+                      <SelectValue placeholder="Select team size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {teamSizeOptions.map((option) => (
+                        <SelectItem key={option} value={option}>{option}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
               <div>
-                <Label htmlFor="contact-message">How Can We Help?</Label>
+                <Label htmlFor="contact-message">What Would You Like Help With?</Label>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Tell us what you want handled (calls, back-office tasks, or both) and we'll recommend the best plan.
+                  What eats up too much of your time? Where do you think AI might help? No wrong answers.
                 </p>
                 <Textarea
                   id="contact-message"
                   {...form.register("message")}
-                  placeholder="Share the tasks or calls you want handled and any details that would help us recommend a plan."
+                  placeholder="Tell us about your business, your biggest time drains, and what you'd like to achieve with AI."
                   rows={5}
                   className="mt-2 resize-none"
                 />
@@ -227,7 +263,7 @@ export function ContactSection() {
                 size="lg"
                 disabled={contactMutation.isPending}
               >
-                {contactMutation.isPending ? "Sending..." : "Send Message"}
+                {contactMutation.isPending ? "Sending..." : "Request My Free Strategy Call"}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </form>
@@ -237,63 +273,29 @@ export function ContactSection() {
             <Card className="p-8 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
               <h3 className="text-2xl font-bold mb-6">What to Expect</h3>
               <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">
-                    1
+                {expectations.map((step, index) => (
+                  <div key={step.title} className="flex gap-4">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">{step.title}</h4>
+                      <p className="text-sm text-muted-foreground">{step.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Quick Response</h4>
-                    <p className="text-sm text-muted-foreground">
-                      We'll review your message and respond within 24 hours.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Discovery Call</h4>
-                    <p className="text-sm text-muted-foreground">
-                      A brief call to understand your workflows and pain points.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Custom Solution</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Receive a tailored plan with clear ROI projections.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </Card>
 
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Our Commitment</h4>
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm">Response within 24 hours</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm">No obligation consultation</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm">Transparent pricing</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm">Dedicated support</span>
-                </div>
+                {commitments.map((commitment) => (
+                  <div key={commitment} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm">{commitment}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
