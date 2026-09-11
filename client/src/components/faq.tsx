@@ -7,6 +7,11 @@ import {
 
 const faqs = [
   {
+    question: "What happens in an AI Strategy Workshop?",
+    answer:
+      "We come to your business and work through it with you, and your team if you'd like. We look at how work actually gets done, show you what AI can realistically handle, and pinpoint where it can save time and grow profits. You walk away with a prioritized, plain-English action plan.",
+  },
+  {
     question: "Do I need to be tech-savvy to work with you?",
     answer:
       "Not at all. We explain everything in plain English and start wherever you are today. If you can send an email, you can learn to use AI in your business.",
@@ -24,7 +29,7 @@ const faqs = [
   {
     question: "What does it cost?",
     answer:
-      "Every business is different, so we start with a free strategy call. Once we understand your goals, we'll give you a clear proposal with transparent pricing and no surprises.",
+      "Every business is different, so pricing depends on your goals and your team. Tell us a little about your business and we'll send clear, up-front pricing for your AI Strategy Workshop before anything is scheduled. No surprises.",
   },
   {
     question: "How quickly will I see results?",

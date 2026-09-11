@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, GraduationCap, Handshake, Search, Workflow, type LucideIcon } from "lucide-react";
+import { Check, GraduationCap, Handshake, Presentation, Workflow, type LucideIcon } from "lucide-react";
 
 interface Service {
   icon: LucideIcon;
@@ -11,19 +11,19 @@ interface Service {
 
 const services: Service[] = [
   {
-    icon: Search,
-    title: "AI Opportunity Assessment",
+    icon: Presentation,
+    title: "AI Strategy Workshop",
     description:
-      "We learn how your business runs, find where AI can save time and make money, and give you a clear, prioritized roadmap.",
+      "An in-person, hands-on workshop at your business. We learn how you work, show you what AI can really do, and pinpoint where it can save time and make money.",
     highlights: [
-      "Review of your workflows and current tools",
-      "Top opportunities ranked by impact",
-      "Plain-English action plan",
+      "On-site with you and your team",
+      "Top AI opportunities ranked by impact",
+      "Plain-English action plan you can put to work",
     ],
   },
   {
     icon: GraduationCap,
-    title: "AI Training & Workshops",
+    title: "AI Team Training",
     description:
       "Hands-on training for you and your team on using AI tools like ChatGPT, Claude, and Copilot safely and effectively in day-to-day work.",
     highlights: [
@@ -93,10 +93,10 @@ export function Services() {
 
         <div className="text-center mt-12">
           <p className="text-muted-foreground mb-6">
-            Not sure where to start? That's exactly what the first call is for.
+            Not sure where to start? Start with an AI Strategy Workshop.
           </p>
           <Button asChild size="lg">
-            <a href="#contact">Book a Free Strategy Call</a>
+            <a href="#contact">Book an AI Strategy Workshop</a>
           </Button>
         </div>
       </div>

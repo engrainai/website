@@ -34,8 +34,8 @@ export function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="lg" variant="default" asChild data-testid="button-strategy-call">
-            <a href="#contact">Book a Free Strategy Call</a>
+          <Button size="lg" variant="default" asChild data-testid="button-strategy-workshop">
+            <a href="#contact">Book an AI Strategy Workshop</a>
           </Button>
           <Button
             size="lg"
@@ -49,7 +49,7 @@ export function Hero() {
         </div>
 
         <p className="text-white/80 mt-6 text-base md:text-lg">
-          No tech background needed. Plain-English guidance tailored to your business.
+          Hands-on, in-person workshops at your business. No tech background needed.
         </p>
       </div>
     </section>

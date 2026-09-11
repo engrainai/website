@@ -5,13 +5,13 @@ The website for Engrain AI, an AI consulting company that teaches small business
 ## Features
 
 - **Dark Mode** - Modern dark theme with toggle for light/dark preference
-- **Hero Section** - Consulting-focused introduction with a free strategy call CTA
+- **Hero Section** - Consulting-focused introduction with an AI Strategy Workshop CTA
 - **What AI Can Do** - Outcomes (profits, productivity, time) plus an honest "can and can't" breakdown
-- **Services** - AI Opportunity Assessment, Training & Workshops, Implementation & Automation, Ongoing AI Advisor
+- **Services** - AI Strategy Workshop (paid, in person), AI Team Training, Implementation & Automation, Ongoing AI Advisor
 - **How It Works** - Four-step Discover, Learn, Implement, Grow process
 - **Time Back Calculator** - Interactive estimate of hours and dollars AI could reclaim
 - **FAQ** - Common questions from small business owners
-- **Contact Form** - Strategy call request form that emails submissions via Zoho SMTP
+- **Contact Form** - Workshop request form that emails submissions via Zoho SMTP
 - **Responsive Design** - Beautiful UI across all devices optimized for dark mode
 - **SEO Optimized** - Proper meta tags and Open Graph support
 

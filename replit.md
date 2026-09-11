@@ -13,7 +13,7 @@ Professional business website for Engrain AI - an AI consulting company that tea
 - **Target Market**: Small business owners
 - **Contact Email**: logan@engrainai.com
 - **Contact Phone**: (623) 632-0933
-- **Pricing**: Custom proposal after a free strategy call (no prices listed on the site)
+- **Pricing**: Entry offering is a paid, in-person AI Strategy Workshop; pricing is shared after inquiry (no prices listed on the site)
 - **Mission**: Help small businesses grow profits, increase productivity, and get their time back by showing them what AI can really do and putting it to work.
 
 > Note: The Voice AI Receptionist and Virtual AI Employee products were removed from the site in September 2026 when the business shifted to AI consulting. Sections below describing older features are historical.

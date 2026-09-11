@@ -4,7 +4,7 @@ const steps = [
   {
     title: "Discover",
     description:
-      "A free strategy call to understand your goals, your challenges, and where time and money are slipping away.",
+      "An in-person AI Strategy Workshop at your business to understand your goals, your challenges, and where time and money are slipping away.",
   },
   {
     title: "Learn",

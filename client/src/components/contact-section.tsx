@@ -20,8 +20,8 @@ import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { z } from "zod";
 
 const serviceOptions = [
-  "AI Opportunity Assessment",
-  "AI Training & Workshops",
+  "AI Strategy Workshop",
+  "AI Team Training",
   "Implementation & Automation",
   "Ongoing AI Advisor",
   "Not sure yet",
@@ -32,23 +32,23 @@ const teamSizeOptions = ["Just me", "2-10 people", "11-50 people", "50+ people"]
 const expectations = [
   {
     title: "Quick Response",
-    description: "We'll review your message and respond within 24 hours.",
+    description: "We'll review your message and reply within 24 hours to learn a bit more about your business.",
   },
   {
-    title: "Free Strategy Call",
-    description: "A no-pressure conversation about your goals and where AI can make the biggest difference.",
+    title: "Clear, Up-Front Pricing",
+    description: "We'll send a proposal for your AI Strategy Workshop tailored to your business, so you know exactly what you're getting before you commit.",
   },
   {
-    title: "Clear Next Steps",
-    description: "Practical recommendations for your business, plus a transparent proposal if we're a good fit.",
+    title: "Your On-Site Workshop",
+    description: "We come to your business, work hands-on with you and your team, and leave you with a clear, plain-English AI action plan.",
   },
 ];
 
 const commitments = [
   "Response within 24 hours",
-  "No-obligation strategy call",
+  "Up-front pricing before you commit",
+  "Hands-on and in person, at your business",
   "Plain-English advice, no jargon",
-  "Transparent pricing",
 ];
 
 const contactFormSchema = z.object({
@@ -113,7 +113,7 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Book Your Free AI Strategy Call
+            Book Your AI Strategy Workshop
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Tell us a little about your business and we'll get back to you within 24 hours.
@@ -263,7 +263,7 @@ export function ContactSection() {
                 size="lg"
                 disabled={contactMutation.isPending}
               >
-                {contactMutation.isPending ? "Sending..." : "Request My Free Strategy Call"}
+                {contactMutation.isPending ? "Sending..." : "Request My AI Strategy Workshop"}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </form>

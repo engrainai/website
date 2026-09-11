@@ -41,7 +41,7 @@ export function Header() {
             <span className="hidden sm:inline">(623) 632-0933</span>
           </a>
           <Button asChild size="sm" className="hidden md:inline-flex" data-testid="header-cta">
-            <a href="#contact">Free Strategy Call</a>
+            <a href="#contact">Book a Workshop</a>
           </Button>
           <ThemeToggle />
         </div>
