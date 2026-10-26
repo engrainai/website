@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import Home from "@/pages/home";
 import PrivacyPolicy from "@/pages/privacy-policy";
+import N8nInformation from "@/pages/n8n-information";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -13,6 +14,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/n8n" component={N8nInformation} />
+      <Route path="/n8n/privacy" component={N8nInformation} />
+      <Route path="/n8n/terms" component={N8nInformation} />
       <Route component={NotFound} />
     </Switch>
   );

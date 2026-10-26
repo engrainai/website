@@ -62,6 +62,7 @@ export function Footer() {
                 </button>
               </li>
             </ul>
+            <a href="/n8n" className="inline-block mt-3 text-sm text-muted-foreground hover:text-foreground">n8n Google integration · Privacy &amp; Terms</a>
           </div>
 
           <div>
